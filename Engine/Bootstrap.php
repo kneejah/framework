@@ -35,6 +35,7 @@
 
 		if ($result == false)
 		{
+			echo "<pre>";
 			echo "Fatal error: could not include file ($path)\n";
 
 			if (DEBUG_MODE)
@@ -43,6 +44,7 @@
 				debug_print_backtrace();
 			}
 
+			echo "</pre>";
 			die();
 		}
 
