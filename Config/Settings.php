@@ -26,8 +26,15 @@
 
 		public static function getCookie()
 		{
-			$config = Config::get('system');
-			return $config->cookie;
+			if (file_exists(APP_ROOT . 'Config/system.php'))
+			{
+				$config = Config::get('system');
+				return $config->cookie;
+			}
+			else
+			{
+				return false;
+			}
 		}
 
 	}
