@@ -26,7 +26,14 @@
 			$vars = $view->render();
 
 			// Load the actual template
-			$loader = new Mustache_Loader_FilesystemLoader(APP_ROOT . 'Template');
+			if (file_exists(APP_ROOT . 'Template'))
+			{
+				$loader = new Mustache_Loader_FilesystemLoader(APP_ROOT . 'Template');
+			}
+			else
+			{
+				$loader = new Mustache_Loader_FilesystemLoader(APP_ROOT . 'System/Template');
+			}
 
 			try
 			{
