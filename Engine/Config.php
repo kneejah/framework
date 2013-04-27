@@ -11,4 +11,9 @@
 			return $class;
 		}
 
+		public static function exists($name)
+		{
+			return file_exists(APP_ROOT . "Config/$name.php");
+		}
+
 	}

@@ -9,8 +9,11 @@
 				'Home' => array('uri' => '/', 'type' => 'get')
 			);
 
-			$config = Config::get('system');
-			$routes = array_merge($routes, $config->routes);
+			if (Config::exists('system'))
+			{
+				$config = Config::get('system');
+				$routes = array_merge($routes, $config->routes);
+			}
 			
 			return $routes;
 		}
@@ -26,7 +29,7 @@
 
 		public static function getCookie()
 		{
-			if (file_exists(APP_ROOT . 'Config/system.php'))
+			if (Config::exists('system'))
 			{
 				$config = Config::get('system');
 				return $config->cookie;
