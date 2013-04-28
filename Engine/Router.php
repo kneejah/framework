@@ -30,12 +30,15 @@
 
 			foreach ($routes as $name => $data)
 			{
-				$type = $data['type'];
+				$types = explode(',', $data['type']);
 				$uri = $data['uri'];
 
-				$app->$type($uri, function() use ($name, $app) {
-					Engine_App::call($name, $app);
-				});
+				foreach ($types as $type)
+				{
+					$app->$type($uri, function() use ($name, $app) {
+						Engine_App::call($name, $app);
+					});
+				}
 			}
 
 			Config_Settings::applyCustomRoutes($app);
