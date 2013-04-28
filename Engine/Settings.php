@@ -1,6 +1,6 @@
 <?php
 
-	class Config_Settings
+	class Engine_Settings
 	{
 
 		public static function getRoutes()
@@ -20,11 +20,10 @@
 
 		public static function applyCustomRoutes(&$app)
 		{
-			$app->post('/canvas/facebook/session', function() use ($app) {
-				echo "<pre>";
-				print_r($_SESSION);
-				echo "</pre>";
-			});
+			if (Config::exists('system'))
+			{
+				// @TODO: actually od something here
+			}
 		}
 
 		public static function getCookie()

@@ -13,7 +13,7 @@
 
 			$app = new \Slim\Slim($settings);
 
-			$cookie = Config_Settings::getCookie();
+			$cookie = Engine_Settings::getCookie();
 			if ($cookie !== false)
 			{
 				$app->add($cookie);
@@ -26,7 +26,7 @@
 		{
 			$app = $this->app;
 
-			$routes = Config_Settings::getRoutes();
+			$routes = Engine_Settings::getRoutes();
 
 			foreach ($routes as $name => $data)
 			{
@@ -41,7 +41,7 @@
 				}
 			}
 
-			Config_Settings::applyCustomRoutes($app);
+			Engine_Settings::applyCustomRoutes($app);
 
 			$this->app->run();
 		}
