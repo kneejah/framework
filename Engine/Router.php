@@ -31,12 +31,28 @@
 			foreach ($routes as $name => $data)
 			{
 				$types = explode(',', $data['type']);
-				$uri = $data['uri'];
+				$uri   = $data['uri'];
 
 				foreach ($types as $type)
 				{
-					$app->$type($uri, function() use ($name, $app) {
-						Engine_App::call($name, $app);
+					$passedOptions = null;
+
+					if (isset($data['options']))
+					{
+						$options = $data['options'];
+
+						if (isset($options[$type]))
+						{
+							$passedOptions = $options[$type];
+						}
+						else if (count($types) == 1)
+						{
+							$passedOptions = $options;
+						}
+					}
+
+					$app->$type($uri, function() use ($name, $app, $passedOptions) {
+						Engine_App::call($name, $app, $passedOptions);
 					});
 				}
 			}

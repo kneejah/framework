@@ -3,7 +3,7 @@
 	class Engine_App
 	{
 
-		public static function call($cont, $app)
+		public static function call($cont, $app, $options)
 		{
 			$method = $app->request()->getMethod();
 
@@ -12,7 +12,14 @@
 			
 			$controller->$method();
 
-			self::respond($cont, $app);
+			if ($options && $options['noview'])
+			{
+				// We're done
+			}
+			else
+			{
+				self::respond($cont, $app);
+			}
 		}
 
 		public static function respond($cont, $app)
@@ -45,9 +52,18 @@
 				$loader = new Mustache_Loader_FilesystemLoader(APP_ROOT . 'System/Template');
 			}
 
-			$mustache = new Mustache_Engine(
-				array('loader' => $loader)
+			$loaders = array(
+				'loader' => $loader
 			);
+
+			if (file_exists(APP_ROOT . 'Partials'))
+			{
+				$partials_loader = new Mustache_Loader_FilesystemLoader(APP_ROOT . 'Partials');
+				$loaders['partials_loader'] = $partials_loader;
+			}
+
+			$mustache = new Mustache_Engine($loaders);
+
 			echo $mustache->render($new_cont . "/" . $method, $vars);
 		}
 
