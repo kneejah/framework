@@ -12,7 +12,7 @@
 			if (Config::exists('system'))
 			{
 				$config = Config::get('system');
-				$routes = array_merge($routes, $config->routes);
+				$routes = array_merge($config->routes, $routes);
 			}
 			
 			return $routes;
