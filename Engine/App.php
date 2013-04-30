@@ -10,11 +10,21 @@
 			$controller_name = "Controller_$cont";
 			$controller = new $controller_name($app);
 			
-			$controller->$method();
+			$ret = $controller->$method();
 
-			if ($options && $options['noview'])
+			if ($options && isset($options['noview']))
 			{
 				// We're done
+				die();
+			}
+			if ($options && isset($options['api']))
+			{
+				if (!$ret)
+				{
+					$ret = array();
+				}
+				echo json_encode($ret);
+				die();
 			}
 			else
 			{
