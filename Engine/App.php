@@ -23,7 +23,9 @@
 				{
 					$ret = array();
 				}
-				echo json_encode($ret);
+
+				$data = array('success' => true, 'result' => $ret);
+				echo json_encode($data);
 				die();
 			}
 			else
