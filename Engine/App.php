@@ -10,7 +10,17 @@
 			$controller_name = "Controller_$cont";
 			$controller = new $controller_name($app);
 			
-			$ret = $controller->$method();
+			$success = null;
+			try
+			{
+				$success = $controller->$method();
+			}
+			catch (Exception_Api $e)
+			{
+				$data = array('success' => false, 'error' => $e->getMessage());
+				echo json_encode($data);
+				die();
+			}
 
 			if ($options && isset($options['noview']))
 			{
@@ -19,12 +29,12 @@
 			}
 			if ($options && isset($options['api']))
 			{
-				if (!$ret)
+				if (!$success)
 				{
-					$ret = array();
+					$success = array();
 				}
 
-				$data = array('success' => true, 'result' => $ret);
+				$data = array('success' => true, 'result' => $success);
 				echo json_encode($data);
 				die();
 			}
