@@ -19,14 +19,15 @@
 			{
 				$data = array('success' => false, 'error' => $e->getMessage());
 				echo json_encode($data);
-				die();
+				return;
 			}
 
 			if ($options && isset($options['noview']))
 			{
 				// We're done
-				die();
+				return;
 			}
+			
 			if ($options && isset($options['api']))
 			{
 				if (!$success)
@@ -36,7 +37,7 @@
 
 				$data = array('success' => true, 'result' => $success);
 				echo json_encode($data);
-				die();
+				return;
 			}
 			else
 			{
