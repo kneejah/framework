@@ -6,7 +6,7 @@
 		public static function getRoutes()
 		{
 			$routes = array(
-				'Home' => array('uri' => '/', 'type' => 'get')
+				array('name' => 'Home', 'uri' => '/', 'type' => 'get')
 			);
 
 			if (Config::exists('system'))
@@ -22,7 +22,7 @@
 		{
 			if (Config::exists('system'))
 			{
-				// @TODO: actually od something here
+				// @TODO: actually do something here
 			}
 		}
 

@@ -28,7 +28,7 @@
 
 			$routes = Engine_Settings::getRoutes();
 
-			foreach ($routes as $name => $data)
+			foreach ($routes as $data)
 			{
 				$types = explode(',', $data['type']);
 				$uri   = $data['uri'];
@@ -51,8 +51,8 @@
 						}
 					}
 
-					$app->$type($uri, function() use ($name, $app, $passedOptions) {
-						Engine_App::call($name, $app, $passedOptions);
+					$app->$type($uri, function() use ($data, $app, $passedOptions) {
+						Engine_App::call($data['name'], $app, $passedOptions);
 					});
 				}
 			}
