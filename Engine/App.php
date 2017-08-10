@@ -6,10 +6,11 @@
 		public static function call($cont, $app, $options)
 		{
 			$method = $app->request()->getMethod();
+			$response = $app->response();
 
 			$controller_name = "Controller_$cont";
 			$controller = new $controller_name($app);
-			
+
 			$success = null;
 			try
 			{
@@ -17,17 +18,18 @@
 			}
 			catch (Exception_Api $e)
 			{
+				$response->header('Content-Type', 'application/json; charset=utf8');
 				$data = array('success' => false, 'error' => $e->getMessage());
-				echo json_encode($data);
-				return;
+				$response->write(json_encode($data));
+				return $response;
 			}
 
 			if ($options && isset($options['noview']))
 			{
 				// We're done
-				return;
+				$response->write('');
+				return $response;
 			}
-			
 			if ($options && isset($options['api']))
 			{
 				if (!$success)
@@ -35,13 +37,16 @@
 					$success = array();
 				}
 
+				$response->header('Content-Type', 'application/json; charset=utf8');
 				$data = array('success' => true, 'result' => $success);
-				echo json_encode($data);
-				return;
+				$response->write(json_encode($data));
+				return $response;
 			}
 			else
 			{
-				self::respond($cont, $app);
+				$data = self::respond($cont, $app);
+				$response->write($data);
+				return $response;
 			}
 		}
 
@@ -87,7 +92,7 @@
 
 			$mustache = new Mustache_Engine($loaders);
 
-			echo $mustache->render($new_cont . "/" . $method, $vars);
+			return $mustache->render($new_cont . "/" . $method, $vars);
 		}
 
 	}

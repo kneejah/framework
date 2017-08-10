@@ -52,7 +52,7 @@
 					}
 
 					$app->$type($uri, function() use ($data, $app, $passedOptions) {
-						Engine_App::call($data['name'], $app, $passedOptions);
+						return Engine_App::call($data['name'], $app, $passedOptions);
 					});
 				}
 			}
