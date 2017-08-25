@@ -1,6 +1,6 @@
 <?php
 
-	class Config_default extends Abstract_Config
+	class Config_Default extends Abstract_Config
 	{
 
 		public function configs()
