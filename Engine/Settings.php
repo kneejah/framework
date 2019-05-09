@@ -28,9 +28,9 @@
 
 		public static function getCookie()
 		{
-			if (Config::exists('system'))
+			if (Config::exists('cookie'))
 			{
-				$config = Config::get('system');
+				$config = Config::get('cookie');
 				return $config->cookie;
 			}
 			else
